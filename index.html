@@ -5,8 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SOFTDEV.ADS </title>
     <meta name="description" content="Desenvolvimento de software profissional e personalizado para seu negócio. Soluções web, sistemas empresariais e muito mais. Entre em contato: (91) 98191-8866">
-    <link rel="icon" type="image/png" href="">
-    <LINk><SRc></SRc></LINk>
+    <link rel="icon" type="image/png" href="c:\Users\MIDIAN\Downloads\Design_sem_nome__2_-removebg-preview.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
     <style>
         * {
             flex-wrap: wrap;
@@ -42,6 +43,8 @@
         }
 
         .nav-content {
+            text-align: center;
+            
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -53,7 +56,7 @@
             gap: 0.5rem;
             font-size: 1.5rem;
             font-weight: bold;
-            color: white;
+            color: #22c55e;
             text-decoration: none;
             position: relative;
         }
@@ -569,15 +572,234 @@
             background: rgba(34, 197, 94, 0.8);
             transform: translateY(-3px);
         }
+        /* Estilos existentes (mantenha tudo como está) */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: white;
+            line-height: 1.6;
+        }
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem;
+            z-index: 1000;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .sidebar {
+            flex-wrap: wrap;
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 280px;
+            height: 100vh;
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 2rem;
+            z-index: 1001;
+            transform: translateX(-100%);
+            transition: transform 0.3s ease;
+            box-shadow: 4px 0 10px rgba(0, 0, 0, 0.1);
+            border-right: 1px solid rgba(34, 197, 94, 0.1);
+        }
+
+        .sidebar.active {
+            transform: translateX(0);
+        }
+
+        .sidebar-logo {
+            flex-wrap: wrap;
+            text-align: center;
+            margin-bottom: 3rem;
+            padding: 1rem;
+            border-bottom: 1px solid rgba(34, 197, 94, 0.1);
+        }
+
+        .sidebar-logo h2 {
+            color: white;
+            font-size: 1.8rem;
+        }
+
+        .sidebar-logo span {
+            color: #22c55e;
+        }
+
+        .nav-menu {
+            list-style: none;
+        }
+
+        .nav-item {
+            margin-bottom: 1rem;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            padding: 1rem;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            background: rgba(15, 23, 42, 0.5);
+            border: 1px solid rgba(34, 197, 94, 0.1);
+        }
+
+        .nav-link i {
+            margin-right: 1rem;
+            font-size: 1.2rem;
+            width: 24px;
+            text-align: center;
+            color: #22c55e;
+        }
+
+        .nav-link:hover {
+            background: rgba(34, 197, 94, 0.1);
+            transform: translateX(5px);
+            border-color: rgba(34, 197, 94, 0.3);
+        }
+
+        .mobile-menu-btn {
+    
+    position: fixed;
+    top: 1.6rem;
+    left: 0.8rem;
+    background: rgba(15, 23, 42, 0);
+    color: white;
+    border: none;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    font-size: 1.2rem;
+    cursor: pointer;
+    z-index: 1100; /* Para manter o botão acima da sidebar */
+    transition: left 0.3s ease;
+}
+
+/* Quando a sidebar estiver ativa, empurrar o botão para a direita */
+.sidebar.active ~ .mobile-menu-btn {
+    left: 300px; /* Ajuste conforme a largura da sidebar */
+}
+.sidebar {
+    position: fixed;
+    left: -600px; /* Esconde a sidebar */
+    top: 0;
+    width: 280px; /* Defina a largura fixa */
+    height: 100vh;
+    background: rgba(15, 23, 42, 0);
+    backdrop-filter: blur(10px);
+    padding: 2rem;
+    z-index: 1001;
+    transition: left 0.3s ease;
+}
+
+/* Quando ativa, mostrar a sidebar */
+.sidebar.active {
+    left: 0;
+}
+
+
+.mobile-menu-btn:hover {
+    background: rgba(34, 197, 94, 0);
+    transform: scale(1.1);
+}
+
+
+
+        /* Sidebar Responsiva */
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 100%; /* Ocupa toda a largura da tela */
+                transform: translateX(-100%); /* Esconde a sidebar por padrão */
+                transition: transform 0.3s ease;
+            }
+
+            .sidebar.active {
+                transform: translateX(0); /* Mostra a sidebar quando ativa */
+            }
+
+            .mobile-menu-btn {
+                display: flex; /* Mostra o botão de menu móvel */
+            }
+
+            .nav-link {
+                padding: 0.75rem; /* Reduz o padding para telas menores */
+            }
+
+            .sidebar-logo h2 {
+                font-size: 1.5rem; /* Reduz o tamanho do logo */
+            }
+
+            .sidebar-logo {
+                margin-bottom: 1.5rem; /* Reduz o espaçamento abaixo do logo */
+            }
+        }
     </style>
 </head>
 <body>
+
+     <!-- Mobile Menu Button -->
+     <button class="mobile-menu-btn" onclick="toggleSidebar()">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <!-- Sidebar -->
+    <nav class="sidebar">
+        <div class="sidebar-logo">
+            <h2></span></h2>
+        </div>
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <i class="fas fa-home"></i>
+                    <span>Início</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#services" class="nav-link">
+                    <i class="fas fa-cogs"></i>
+                    <span>Serviços</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#stats" class="nav-link">
+                    <i class="fas fa-chart-bar"></i>
+                    <span>Estatísticas</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#testimonials" class="nav-link">
+                    <i class="fas fa-comments"></i>
+                    <span>Depoimentos</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#contact" class="nav-link">
+                    <i class="fas fa-envelope"></i>
+                    <span>Contato</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+  
     <nav class="navbar">
         <div class="container">
             <div class="nav-content">
                 <a href="#" class="logo">
-                    <span>⚡</span>
-                    <span>SOFTDEV.ADS</span>
+                    <span></span>
+                    <span>SOFTDEV<br>
+                    </span>
                 </a>
                 <button class="contact-btn" onclick="openWhatsApp()">
                     <span></span>
@@ -752,7 +974,7 @@
     <footer>
         <div class="container">
             <div class="footer-content">
-                <span class="footer-logo">⚡ SoftDev.ads</span>
+                <span class="footer-logo"> SOFTDEV </span>
                 <p class="footer-text">
                     Transformando ideias em soluções digitais inovadoras. 
                     Sua parceira em desenvolvimento de software profissional.
@@ -840,6 +1062,42 @@
         });
 
         observer.observe(document.querySelector('.stats'));
+    
+        // Enhanced Slider Functionality
+     
+        function toggleSidebar() {
+    const sidebar = document.querySelector('.sidebar');
+    const menuBtn = document.querySelector('.mobile-menu-btn i');
+
+    sidebar.classList.toggle('active');
+
+    // Alternar o ícone do botão
+    if (sidebar.classList.contains('active')) {
+        menuBtn.classList.remove('fa-bars');
+        menuBtn.classList.add('fa-times');
+    } else {
+        menuBtn.classList.remove('fa-times');
+        menuBtn.classList.add('fa-bars');
+    }
+}
+
+// Fechar a sidebar ao clicar fora
+document.addEventListener('click', (e) => {
+    const sidebar = document.querySelector('.sidebar');
+    const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+
+    if (!sidebar.contains(e.target) && !mobileMenuBtn.contains(e.target) && sidebar.classList.contains('active')) {
+        toggleSidebar();
+    }
+});
+
+
+function openWhatsApp() {
+    window.open('https://wa.me/5591981918866', '_blank');
+}
+
+
+    </script>
     </script>
 </body>
 </html>
