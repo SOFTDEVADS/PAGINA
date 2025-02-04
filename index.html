@@ -672,8 +672,8 @@
         .mobile-menu-btn {
     
     position: fixed;
-    top: 1.6rem;
-    left: 0.8rem;
+    top: 0.9rem;
+    left: 0.4rem;
     background: rgba(15, 23, 42, 0);
     color: white;
     border: none;
@@ -705,7 +705,7 @@
 
 /* Quando ativa, mostrar a sidebar */
 .sidebar.active {
-    left: 0;
+    left: 0px;
 }
 
 
@@ -717,11 +717,11 @@
 
 
         /* Sidebar Responsiva */
-        @media (max-width: 768px) {
+        @media (width: 960px) {
             .sidebar {
-                width: 100%; /* Ocupa toda a largura da tela */
-                transform: translateX(-100%); /* Esconde a sidebar por padrão */
-                transition: transform 0.3s ease;
+                width: 82px;
+                /* Ocupa toda a largura da tela */
+
             }
 
             .sidebar.active {
@@ -760,7 +760,7 @@
         </div>
         <ul class="nav-menu">
             <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="#inicio" class="nav-link">
                     <i class="fas fa-home"></i>
                     <span>Início</span>
                 </a>
@@ -809,7 +809,8 @@
         </div>
     </nav>
 
-    <section class="hero">
+    <span>Inicio</span>
+    <section id="inicio" class="hero">
         <div class="container">
             <div class="hero-content">
                 <div class="hero-text">
@@ -828,7 +829,7 @@
         </div>
     </section>
 
-    <section class="stats">
+    <section id="stats" class="stats">
         <div class="container">
             <div class="stats-grid">
                 <div class="stat-item">
@@ -851,7 +852,7 @@
         </div>
     </section>
 
-    <section class="services">
+    <section id="services" class="services">
         <div class="container">
             <div class="section-title">
                 <h2>Nossos Serviços</h2>
@@ -892,7 +893,7 @@
         </div>
     </section>
 
-    <section class="testimonials">
+    <section id="testimonials" class="testimonials">
         <div class="container">
             <div class="section-title">
                 <h2>O que Nossos Clientes Dizem</h2>
@@ -945,7 +946,7 @@
         </div>
     </section>
 
-    <section class="contact">
+    <section id="contact" class="contact">
         <div class="container">
             <div class="section-title">
                 <h2>Entre em Contato</h2>
