@@ -7,6 +7,9 @@
     <meta name="description" content="Desenvolvimento de software profissional e personalizado para seu negócio. Soluções web, sistemas empresariais e muito mais. Entre em contato: (91) 98191-8866">
     <link rel="icon" type="image/png" href="c:\Users\MIDIAN\Downloads\Design_sem_nome__2_-removebg-preview.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css">
+<script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
+
     
     <style>
         * {
@@ -744,6 +747,41 @@
                 margin-bottom: 1.5rem; /* Reduz o espaçamento abaixo do logo */
             }
         }
+        .carousel {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+}
+
+.carousel-container {
+    display: flex;
+    width: 300%;
+    animation: slide 9s infinite linear;
+}
+
+.carousel-container img {
+    width: 100%;
+    object-fit: cover;
+}
+
+@keyframes slide {
+    0% { transform: translateX(0%); }
+    33% { transform: translateX(-100%); }
+    66% { transform: translateX(-200%); }
+    100% { transform: translateX(0%); }
+}
+.swiper-container {
+    width: 100%;
+    height: 400px;
+}
+
+.swiper-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+
     </style>
 </head>
 <body>
@@ -827,6 +865,7 @@
                 </div>
             </div>
         </div>
+        
     </section>
 
     <section id="stats" class="stats">
@@ -1096,6 +1135,53 @@ document.addEventListener('click', (e) => {
 function openWhatsApp() {
     window.open('https://wa.me/5591981918866', '_blank');
 }
+// Função para definir um cookie
+function setCookie(nome, valor, dias) {
+    let dataExpiracao = "";
+    if (dias) {
+        let data = new Date();
+        data.setTime(data.getTime() + dias * 24 * 60 * 60 * 1000);
+        dataExpiracao = "; expires=" + data.toUTCString();
+    }
+    document.cookie = nome + "=" + encodeURIComponent(valor) + dataExpiracao + "; path=/";
+}
+
+// Função para obter um cookie
+function getCookie(nome) {
+    let nomeIgual = nome + "=";
+    let cookies = document.cookie.split(';');
+    for (let i = 0; i < cookies.length; i++) {
+        let c = cookies[i].trim();
+        if (c.indexOf(nomeIgual) === 0) {
+            return decodeURIComponent(c.substring(nomeIgual.length, c.length));
+        }
+    }
+    return null;
+}
+
+// Função para verificar se o usuário aceitou cookies
+function checkCookieConsent() {
+    let consent = getCookie("cookieConsent");
+    if (!consent) {
+        let banner = document.createElement("div");
+        banner.innerHTML = `
+            <div id="cookie-banner" style="position:fixed; bottom:0; left:0; right:0; background:#2E7D32; color:#fff; padding:15px; text-align:center; z-index:1000;">
+                <p>Este site usa cookies para melhorar sua experiência. <a href="#" style="color:#C8E6C9;">Saiba mais</a>.</p>
+                <button onclick="acceptCookies()" style="background:#66BB6A; border:none; padding:10px 15px; margin-left:10px; cursor:pointer; color:#fff; font-weight:bold; border-radius:5px;">Aceitar</button>
+            </div>
+        `;
+        document.body.appendChild(banner);
+    }
+}
+
+// Função para aceitar cookies e salvar consentimento
+function acceptCookies() {
+    setCookie("cookieConsent", "true", 30);
+    document.getElementById("cookie-banner").remove();
+}
+
+// Executar a verificação ao carregar a página
+document.addEventListener("DOMContentLoaded", checkCookieConsent);
 
 
     </script>
