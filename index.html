@@ -8,7 +8,7 @@
     <link rel="icon" type="image/png" href="c:\Users\MIDIAN\Downloads\Design_sem_nome__2_-removebg-preview.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css">
-<script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
 
     
     <style>
@@ -673,49 +673,49 @@
         }
 
         .mobile-menu-btn {
-    
-    position: fixed;
-    top: 0.9rem;
-    left: 0.4rem;
-    background: rgba(15, 23, 42, 0);
-    color: white;
-    border: none;
-    width: 45px;
-    height: 45px;
-    border-radius: 50%;
-    font-size: 1.2rem;
-    cursor: pointer;
-    z-index: 1100; /* Para manter o botão acima da sidebar */
-    transition: left 0.3s ease;
-}
+            
+            position: fixed;
+            top: 0.9rem;
+            left: 0.4rem;
+            background: rgba(15, 23, 42, 0);
+            color: white;
+            border: none;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            font-size: 1.2rem;
+            cursor: pointer;
+            z-index: 1100; /* Para manter o botão acima da sidebar */
+            transition: left 0.3s ease;
+        }
 
-/* Quando a sidebar estiver ativa, empurrar o botão para a direita */
-.sidebar.active ~ .mobile-menu-btn {
-    left: 300px; /* Ajuste conforme a largura da sidebar */
-}
-.sidebar {
-    position: fixed;
-    left: -600px; /* Esconde a sidebar */
-    top: 0;
-    width: 280px; /* Defina a largura fixa */
-    height: 100vh;
-    background: rgba(15, 23, 42, 0);
-    backdrop-filter: blur(10px);
-    padding: 2rem;
-    z-index: 1001;
-    transition: left 0.3s ease;
-}
+        /* Quando a sidebar estiver ativa, empurrar o botão para a direita */
+        .sidebar.active ~ .mobile-menu-btn {
+            left: 300px; /* Ajuste conforme a largura da sidebar */
+        }
+        .sidebar {
+            position: fixed;
+            left: -600px; /* Esconde a sidebar */
+            top: 0;
+            width: 280px; /* Defina a largura fixa */
+            height: 100vh;
+            background: rgba(15, 23, 42, 0);
+            backdrop-filter: blur(10px);
+            padding: 2rem;
+            z-index: 1001;
+            transition: left 0.3s ease;
+        }
 
-/* Quando ativa, mostrar a sidebar */
-.sidebar.active {
-    left: 0px;
-}
+        /* Quando ativa, mostrar a sidebar */
+        .sidebar.active {
+            left: 0px;
+        }
 
 
-.mobile-menu-btn:hover {
-    background: rgba(34, 197, 94, 0);
-    transform: scale(1.1);
-}
+        .mobile-menu-btn:hover {
+            background: rgba(34, 197, 94, 0);
+            transform: scale(1.1);
+        }
 
 
 
@@ -747,41 +747,114 @@
                 margin-bottom: 1.5rem; /* Reduz o espaçamento abaixo do logo */
             }
         }
-        .carousel {
-    width: 100%;
-    overflow: hidden;
-    position: relative;
-}
+             .carousel {
+                width: 100%;
+                overflow: hidden;
+                position: relative;
+    }
 
-.carousel-container {
-    display: flex;
-    width: 300%;
-    animation: slide 9s infinite linear;
-}
+            .carousel-container {
+                display: flex;
+                width: 300%;
+                animation: slide 9s infinite linear;
+            }
 
-.carousel-container img {
-    width: 100%;
-    object-fit: cover;
-}
+                .carousel-container img {
+                width: 100%;
+                object-fit: cover;
+                }
 
-@keyframes slide {
-    0% { transform: translateX(0%); }
-    33% { transform: translateX(-100%); }
-    66% { transform: translateX(-200%); }
-    100% { transform: translateX(0%); }
-}
-.swiper-container {
-    width: 100%;
-    height: 400px;
-}
+                @keyframes slide {
+                0% { transform: translateX(0%); }
+                33% { transform: translateX(-100%); }
+                66% { transform: translateX(-200%); }
+                100% { transform: translateX(0%); }
+                }
+            .swiper-container {
+                width: 100%;
+                height: 400px;
+                }
 
-.swiper-slide img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-
+            .swiper-slide img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                }
+            /* Container principal responsivo */
+           .container1 {
+      position: relative;
+      width: 300px;
+      max-width: 100%;
+      margin: 20px auto;
+      border: 2px solid #ddd;
+      overflow: hidden;
+    }
+    
+    /* Wrapper para manter a proporção: 300px x 200px (66.66%) */
+    .slider-wrapper {
+      position: relative;
+      width: 100%;
+      padding-top: 66.66%; /* 200/300 = 66.66% */
+    }
+    
+    /* Cada slide ocupa todo o espaço do wrapper e fica oculto por padrão */
+    .slide {
+        align-items: center;
+        flex-wrap: wrap;
+        border-radius: 20px;
+      position: absolute;
+      top: 70px;
+      left: 5%;
+      width: 90%;
+      height: 95%;
+      display: none;
+    }
+    
+    .slide img {
+      border-radius: 20px;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    
+    /* Oculta os inputs de controle */
+    input[type="radio"] {
+      display: none;
+    }
+    
+    /* Exibe o slide correspondente ao botão marcado */
+    #radio1:checked ~ .slider-wrapper .slide1,
+    #radio2:checked ~ .slider-wrapper .slide2,
+    #radio3:checked ~ .slider-wrapper .slide3,
+    #radio4:checked ~ .slider-wrapper .slide4 {
+      display: block;
+    }
+    
+    /* Navegação manual (botões) */
+    .manual-navigation {
+      position: absolute;
+      bottom: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 10px;
+      z-index: 10;
+    }
+    
+    .manual-btn {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background-color: #22c55e00;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    
+    .manual-btn:hover {
+      background-color: #1b9e4900;
+    }
+                /* Exemplo de ajuste para telas muito pequenas */
+             
     </style>
 </head>
 <body>
@@ -866,6 +939,37 @@
             </div>
         </div>
         
+    <!-- Inputs de controle (radio buttons) -->
+    <input type="radio" name="radio-btn" id="radio1" checked>
+    <input type="radio" name="radio-btn" id="radio2">
+    <input type="radio" name="radio-btn" id="radio3">
+    <input type="radio" name="radio-btn" id="radio4">
+    
+    <!-- Wrapper que mantém a proporção do slider -->
+    <div class="slider-wrapper">
+      <!-- Slides (cada um com sua classe identificadora) -->
+      <div class="slide slide1">
+        <img src="c:\Users\MIDIAN\Downloads\download (11) (1).jpg" alt="Imagem 1">
+      </div>
+      <div class="slide slide2">
+        <img src="c:\Users\MIDIAN\Downloads\download (12) (1).jpg" alt="Imagem 2">
+      </div>
+      <div class="slide slide3">
+        <img src="c:\Users\MIDIAN\Downloads\download (13) (1).jpg" alt="Imagem 3">
+      </div>
+      <div class="slide slide4">
+        <img src="c:\Users\MIDIAN\Downloads\images (6) (1).jpg" alt="Imagem 4">
+      </div>
+    </div>
+    
+    <!-- Navegação manual: labels para os radio buttons -->
+    <div class="manual-navigation">
+      <label for="radio1" class="manual-btn"></label>
+      <label for="radio2" class="manual-btn"></label>
+      <label for="radio3" class="manual-btn"></label>
+      <label for="radio4" class="manual-btn"></label>
+    </div>
+  </div>
     </section>
 
     <section id="stats" class="stats">
@@ -1182,6 +1286,17 @@ function acceptCookies() {
 
 // Executar a verificação ao carregar a página
 document.addEventListener("DOMContentLoaded", checkCookieConsent);
+const radios = document.querySelectorAll('input[name="radio-btn"]');
+    let currentIndex = 0;
+
+    // Função que muda para o próximo slide
+    function nextSlide() {
+      radios[currentIndex].checked = true;
+      currentIndex = (currentIndex + 1) % radios.length; // volta ao primeiro quando chegar ao final
+    }
+
+    // Chama a função nextSlide a cada 3 segundos (3000ms)
+    setInterval(nextSlide, 3500);
 
 
     </script>
