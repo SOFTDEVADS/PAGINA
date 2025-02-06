@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -10,9 +11,8 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css">
     <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
-
-
-    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="style.css">
     <style>
         * {
             flex-wrap: wrap;
@@ -1117,10 +1117,86 @@ h1 {
             text-align: center;
             
 } 
+.slide-in {
+      animation: slideIn 0.3s ease-out;
+    }
+    
+    .slide-out {
+      animation: slideOut 0.3s ease-out;
+    }
+    
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    @keyframes slideOut {
+      from {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      to {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+    }
            
     </style>
 </head>
 <body>
+  <div id="chat-widget" class="fixed bottom-4 right-4 z-50">
+    <!-- Botão do Chat -->
+    <button id="chat-button" class="bg-blue-600 hover:bg-blue-700 text-white rounded-full p-4 shadow-lg transition-all duration-200 flex items-center gap-2">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="m3 21 1.9-5.7a8.5 8.5 0 1 1 3.8 3.8z"></path>
+      </svg>
+      <span>Chat</span>
+    </button>
+  
+    <!-- Janela do Chat -->
+    <div id="chat-window" class="hidden bg-white rounded-lg shadow-xl w-[350px] h-[500px] flex flex-col">
+      <!-- Cabeçalho -->
+      <div class="bg-blue-600 text-white p-4 rounded-t-lg flex justify-between items-center">
+        <h3 class="font-semibold">Chat de Atendimento</h3>
+        <button id="close-chat" class="hover:bg-blue-700 rounded-full p-1 transition-colors">
+          <svg xmlns="http://www.w3.org/2000/svg" width="152" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M18 6 6 18"></path>
+            <path d="m6 6 12 12"></path>
+          </svg>
+        </button>
+      </div>
+  
+      <!-- Mensagens -->
+      <div id="messages" class="flex-1 overflow-y-auto p-4 space-y-4"></div>
+  
+      <!-- Input -->
+      <form id="message-form" class="p-4 border-t">
+        <div class="flex gap-2">
+          <input
+            type="text"
+            id="message-input"
+            placeholder="Digite sua mensagem..."
+            class="flex-1 border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-600"
+          />
+          <button
+            type="submit"
+            class="bg-blue-600 hover:bg-blue-700 text-white rounded-lg px-4 py-2 transition-colors"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="m22 2-7 20-4-9-9-4Z"></path>
+              <path d="M22 2 11 13"></path>
+            </svg>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
 
      <!-- Mobile Menu Button -->
      <button class="mobile-menu-btn" onclick="toggleSidebar()">
@@ -1441,16 +1517,90 @@ h1 {
         </div>
     </footer>
 
-    <div class="floating-whatsapp" onclick="openWhatsApp()">
-        📱
-    </div>
+    
+        
 
     <div class="scroll-to-top" onclick="scrollToTop()">
         ⬆️
     </div>
 
     <script>
-        
+         class ChatBot {
+        constructor() {
+          // Elementos do DOM
+          this.chatButton = document.getElementById('chat-button');
+          this.chatWindow = document.getElementById('chat-window');
+          this.closeButton = document.getElementById('close-chat');
+          this.messageForm = document.getElementById('message-form');
+          this.messageInput = document.getElementById('message-input');
+          this.messagesContainer = document.getElementById('messages');
+          
+          // Estado
+          this.isOpen = false;
+
+          // Event Listeners
+          this.chatButton.addEventListener('click', () => this.toggleChat());
+          this.closeButton.addEventListener('click', () => this.toggleChat());
+          this.messageForm.addEventListener('submit', (e) => this.handleSendMessage(e));
+
+          // Mensagem inicial
+          this.addMessage("Olá! Como posso ajudar você hoje?", true);
+        }
+
+        toggleChat() {
+          this.isOpen = !this.isOpen;
+          
+          if (this.isOpen) {
+            this.chatButton.style.display = 'none';
+            this.chatWindow.style.display = 'flex';
+            this.chatWindow.classList.add('slide-in');
+            this.chatWindow.classList.remove('slide-out');
+          } else {
+            this.chatWindow.classList.remove('slide-in');
+            this.chatWindow.classList.add('slide-out');
+            setTimeout(() => {
+              this.chatWindow.style.display = 'none';
+              this.chatButton.style.display = 'flex';
+            }, 300);
+          }
+        }
+
+        addMessage(text, isBot) {
+          const messageDiv = document.createElement('div');
+          messageDiv.className = `flex ${isBot ? 'justify-start' : 'justify-end'}`;
+          
+          const messageContent = document.createElement('div');
+          messageContent.className = `max-w-[80%] p-3 rounded-lg ${
+            isBot ? 'bg-gray-100 text-gray-800' : 'bg-blue-600 text-white'
+          }`;
+          messageContent.textContent = text;
+          
+          messageDiv.appendChild(messageContent);
+          this.messagesContainer.appendChild(messageDiv);
+          this.messagesContainer.scrollTop = this.messagesContainer.scrollHeight;
+        }
+
+        handleSendMessage(e) {
+          e.preventDefault();
+          const message = this.messageInput.value.trim();
+          
+          if (!message) return;
+
+          // Adiciona mensagem do usuário
+          this.addMessage(message, false);
+          this.messageInput.value = '';
+
+          // Simula resposta do bot
+          setTimeout(() => {
+            this.addMessage("Obrigado por sua mensagem! Em breve um de nossos atendentes entrará em contato.", true);
+          }, 1000);
+        }
+      }
+
+      // Inicializa o chat quando o DOM estiver carregado
+      document.addEventListener('DOMContentLoaded', () => {
+        new ChatBot();
+      });
         function openWhatsApp() {
             window.open('https://wa.me/5591981918866', '_blank');
         }
@@ -1615,36 +1765,7 @@ const radios = document.querySelectorAll('input[name="radio-btn"]');
     particlesGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
     
 
-    // Criar o sistema de partículas
-    const particles = new THREE.Points(particlesGeometry, particlesMaterial);
-    scene.add(particles);
-
-    // Função de animação
-    let clock = new THREE.Clock();
-    function animate() {
-        requestAnimationFrame(animate);
-
-        let elapsedTime = clock.getElapsedTime();
-        for (let i = 0; i < particleCount; i++) {
-            const x = particlesGeometry.attributes.position.getX(i);
-            const y = particlesGeometry.attributes.position.getY(i);
-            particlesGeometry.attributes.position.setZ(i, Math.sin(elapsedTime + x + y) * 0.5);
-        }
-        particlesGeometry.attributes.position.needsUpdate = true;
-        particles.rotation.y = elapsedTime * 0.1;
-
-        renderer.render(scene, camera);
-    }
-
-    animate();
-
-    window.addEventListener('resize', () => {
-        renderer.setSize(window.innerWidth, window.innerHeight);
-        camera.aspect = window.innerWidth / window.innerHeight;
-        camera.updateProjectionMatrix();
-    });
-
-    
+   
     </script>
 </body>
 </html>
