@@ -1146,57 +1146,96 @@ h1 {
         transform: translateY(20px);
       }
     }
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f5f5f5;
+        }
+        .chat-container {
+            width: 350px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        .chat-header {
+            background: #007bff;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+        }
+        .chat-header img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+        .chat-box {
+            padding: 15px;
+            height: 300px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+        }
+        .chat-message {
+            background: #e9ecef;
+            padding: 10px;
+            border-radius: 10px;
+            margin: 5px 0;
+            max-width: 80%;
+        }
+        .user-message {
+            background: #007bff;
+            color: white;
+            align-self: flex-end;
+        }
+        .chat-input {
+            display: flex;
+            border-top: 1px solid #ccc;
+            padding: 10px;
+            background: white;
+        }
+        .chat-input button {
+            margin-left: 10px;
+            padding: 10px;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .options button {
+            padding: 10px;
+            margin: 5px;
+            border: none;
+            border-radius: 20px;
+            background: #007bff;
+            color: white;
+            cursor: pointer;
+        }
            
     </style>
 </head>
 <body>
-  <div id="chat-widget" class="fixed bottom-4 right-4 z-50">
-    <!-- Botão do Chat -->
-    <button id="chat-button" class="bg-blue-600 hover:bg-blue-700 text-white rounded-full p-4 shadow-lg transition-all duration-200 flex items-center gap-2">
-      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="m3 21 1.9-5.7a8.5 8.5 0 1 1 3.8 3.8z"></path>
-      </svg>
-      <span>Chat</span>
-    </button>
-  
-    <!-- Janela do Chat -->
-    <div id="chat-window" class="hidden bg-white rounded-lg shadow-xl w-[400px] h-[500px] flex flex-col">
-      <!-- Cabeçalho -->
-      <div class="bg-blue-600 text-white p-4 rounded-t-lg flex justify-between items-center">
-        <h3 class="font-semibold">Chat de Atendimento</h3>
-        <button id="close-chat" class="hover:bg-blue-700 rounded-full p-1 transition-colors">
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M18 6 6 18"></path>
-            <path d="m6 6 12 12"></path>
-          </svg>
-        </button>
-      </div>
-  
-      <!-- Mensagens -->
-      <div id="messages" class="flex-1 overflow-y-auto p-4 space-y-4"></div>
-  
-      <!-- Input -->
-      <form id="message-form" class="p-4 border-t">
-        <div class="flex gap-2">
-          <input
-            type="text"
-            id="message-input"
-            placeholder="Digite sua mensagem..."
-            class="flex-1 border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-600"
-          />
-          <button
-            type="submit"
-            class="bg-blue-600 hover:bg-blue-700 text-white rounded-lg px-4 py-2 transition-colors"
-          >
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="m22 2-7 20-4-9-9-4Z"></path>
-              <path d="M22 2 11 13"></path>
-            </svg>
-          </button>
+  <div class="chat-container">
+        <div class="chat-header">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png" alt="Avatar">
+            Clara - Assistente Virtual
         </div>
-      </form>
+        <div class="chat-box" id="chat-box">
+            <div class="chat-message">Olá! Como posso te ajudar hoje?</div>
+        </div>
+        <div class="chat-input">
+            <input type="text" id="user-input" placeholder="Digite aqui..." style="flex: 1; padding: 10px; border: none;">
+            <button onclick="sendMessage()">Enviar</button>
+        </div>
     </div>
-  </div>
 
      <!-- Mobile Menu Button -->
      <button class="mobile-menu-btn" onclick="toggleSidebar()">
@@ -1517,83 +1556,44 @@ h1 {
         </div>
     </footer>
 <script>
-         class ChatBot {
-        constructor() {
-          // Elementos do DOM
-          this.chatButton = document.getElementById('chat-button');
-          this.chatWindow = document.getElementById('chat-window');
-          this.closeButton = document.getElementById('close-chat');
-          this.messageForm = document.getElementById('message-form');
-          this.messageInput = document.getElementById('message-input');
-          this.messagesContainer = document.getElementById('messages');
-          
-          // Estado
-          this.isOpen = false;
-
-          // Event Listeners
-          this.chatButton.addEventListener('click', () => this.toggleChat());
-          this.closeButton.addEventListener('click', () => this.toggleChat());
-          this.messageForm.addEventListener('submit', (e) => this.handleSendMessage(e));
-
-          // Mensagem inicial
-          this.addMessage("Olá! Como posso ajudar você hoje?", true);
+        function sendMessage() {
+            const inputField = document.getElementById("user-input");
+            const message = inputField.value.trim();
+            if (message === "") return;
+            addMessage(message, "user-message");
+            inputField.value = "";
+            setTimeout(() => botResponse(message), 1000);
         }
 
-        toggleChat() {
-          this.isOpen = !this.isOpen;
-          
-          if (this.isOpen) {
-            this.chatButton.style.display = 'none';
-            this.chatWindow.style.display = 'flex';
-            this.chatWindow.classList.add('slide-in');
-            this.chatWindow.classList.remove('slide-out');
-          } else {
-            this.chatWindow.classList.remove('slide-in');
-            this.chatWindow.classList.add('slide-out');
-            setTimeout(() => {
-              this.chatWindow.style.display = 'none';
-              this.chatButton.style.display = 'flex';
-            }, 300);
-          }
+        function addMessage(text, className = "") {
+            const chatBox = document.getElementById("chat-box");
+            const messageDiv = document.createElement("div");
+            messageDiv.classList.add("chat-message");
+            if (className) messageDiv.classList.add(className);
+            messageDiv.textContent = text;
+            chatBox.appendChild(messageDiv);
+            chatBox.scrollTop = chatBox.scrollHeight;
         }
 
-        addMessage(text, isBot) {
-          const messageDiv = document.createElement('div');
-          messageDiv.className = `flex ${isBot ? 'justify-start' : 'justify-end'}`;
-          
-          const messageContent = document.createElement('div');
-          messageContent.className = `max-w-[80%] p-3 rounded-lg ${
-            isBot ? 'bg-gray-100 text-gray-800' : 'bg-blue-600 text-white'
-          }`;
-          messageContent.textContent = text;
-          
-          messageDiv.appendChild(messageContent);
-          this.messagesContainer.appendChild(messageDiv);
-          this.messagesContainer.scrollTop = this.messagesContainer.scrollHeight;
+        function botResponse(userText) {
+            const responses = {
+                "oi": "Olá! Como posso te ajudar?",
+                "quem é você?": "Sou Clara, sua assistente virtual!",
+                "ajuda": "Claro! Me diga qual é sua dúvida.",
+                "adeus": "Até logo! Foi um prazer ajudar.",
+                "qual seu nome?": "Meu nome é Clara, sua assistente virtual!",
+                "o que você pode fazer?": "Posso responder perguntas, dar informações e ajudar com suporte básico!",
+                "como funciona o chatbot?": "Sou um assistente virtual baseado em IA, programado para responder perguntas e interagir com você!",
+                "qual é o significado da vida?": "Uma ótima pergunta! Algumas pessoas dizem que é 42, mas acredito que seja encontrar propósito e felicidade!",
+                "me conte uma piada": "Por que o programador não gosta do mar? Porque tem muitos bugs!",
+                "qual o clima hoje?": "Não consigo verificar o clima no momento, mas você pode conferir em um site de previsão do tempo!",
+                "qual sua cor favorita?": "Eu gosto de azul! Combina com a interface do meu chat!",
+                "você é inteligente?": "Faço o meu melhor para ajudar! Posso aprender mais com suas interações!",
+                "você tem sentimentos?": "Sou um chatbot, então não tenho emoções, mas estou aqui para ajudar da melhor forma possível!"
+            };
+            const response = responses[userText.toLowerCase()] || "Desculpe, não entendi. Pode reformular?";
+            addMessage(response);
         }
-
-        handleSendMessage(e) {
-          e.preventDefault();
-          const message = this.messageInput.value.trim();
-          
-          if (!message) return;
-
-          // Adiciona mensagem do usuário
-          this.addMessage(message, false);
-          this.messageInput.value = '';
-
-          // Simula resposta do bot
-          setTimeout(() => {
-            this.addMessage("Obrigado por sua mensagem! Em breve um de nossos atendentes entrará em contato.", true);
-          }, 1000);
-        }
-      }
-         
-
-      // Inicializa o chat quando o DOM estiver carregado
-      document.addEventListener('DOMContentLoaded', () => {
-        new ChatBot();
-      });
         function openWhatsApp() {
             window.open('https://wa.me/5591981918866', '_blank');
         }
