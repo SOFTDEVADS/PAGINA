@@ -1146,20 +1146,31 @@ h1 {
         transform: translateY(20px);
       }
     }
-        body {
-            font-family: Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background-color: #f5f5f5;
+         .chatbot-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            font-size: 24px;
+            cursor: pointer;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
         }
         .chat-container {
+            position: fixed;
+            bottom: 80px;
+            right: 20px;
             width: 350px;
             background: white;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             overflow: hidden;
+            display: none;
+            flex-direction: column;
         }
         .chat-header {
             background: #007bff;
@@ -1210,20 +1221,11 @@ h1 {
             border-radius: 5px;
             cursor: pointer;
         }
-        .options button {
-            padding: 10px;
-            margin: 5px;
-            border: none;
-            border-radius: 20px;
-            background: #007bff;
-            color: white;
-            cursor: pointer;
-        }
-           
     </style>
 </head>
 <body>
-  <div class="chat-container">
+   <button class="chatbot-button" onclick="toggleChat()">💬</button>
+    <div class="chat-container" id="chat-container">
         <div class="chat-header">
             <img src="https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png" alt="Avatar">
             Clara - Assistente Virtual
@@ -1556,6 +1558,11 @@ h1 {
         </div>
     </footer>
 <script>
+        function toggleChat() {
+            const chatContainer = document.getElementById("chat-container");
+            chatContainer.style.display = chatContainer.style.display === "flex" ? "none" : "flex";
+        }
+        
         function sendMessage() {
             const inputField = document.getElementById("user-input");
             const message = inputField.value.trim();
